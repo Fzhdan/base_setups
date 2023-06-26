@@ -62,30 +62,19 @@ if [[ "$VERSION_ID" = '11' ]] || [[ "$VERSION_ID" = '20.04' ]] || [[ "$VERSION_I
 fi
 
 
-if [[ "$systemos" = '' ]]; then
-   echo ""
-   echo ""
-   echo -e "${RED}This script is only for Debian 12 / 11 or Fedora 38 / 37  !${ENDCOLOR}"
-   exit 1
-fi
-
 
 #
 # OS updates
 #
 echo -e "${GREEN}update upgrade and install ${ENDCOLOR}"
 
-if [[ "$systemos" = 'debian' ]]; then
+if [[ "$systemos" = 'debian' ]] || [[ "$ID" = 'ubuntu' ]]; then
 apt update && apt upgrade -y && apt autoremove -y
 apt remove ufw -y
 apt install firewalld fail2ban rsyslog unattended-upgrades apt-listchanges -y
 fi
 
 
-if [[ "$systemos" = 'fedora' ]]; then
-dnf upgrade --refresh -y && dnf autoremove -y
-dnf install firewalld rsyslog fail2ban dnf-automatic -y
-fi
 
 mkdir /root/script_backupfiles/
 clear
