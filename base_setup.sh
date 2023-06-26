@@ -43,25 +43,22 @@ if [[ "$EUID" -ne 0 ]]; then
 fi
 
 #
-# OS check
-#
-echo -e "${GREEN}OS check ${ENDCOLOR}"
-
+### check if Debian or Ubuntu
 . /etc/os-release
-
-if [[ "$ID" = 'debian' ]]; then
- if [[ "$VERSION_ID" = '12' ]] || [[ "$VERSION_ID" = '11' ]]; then
-   echo -e "${GREEN}OS = Debian ${ENDCOLOR}"
-   systemos=debian
-   fi
+if [[ "$ID" = 'debian' ]] || [[ "$ID" = 'ubuntu' ]]; then
+   echo -e "OS ID check = ${GREEN}ok${ENDCOLOR}"
+   else 
+   echo -e "${RED}This script is only for Debian and Ubuntu ${ENDCOLOR}"
+   exit 1
 fi
 
 
-if [[ "$ID" = 'fedora' ]]; then
- if [[ "$VERSION_ID" = '38' ]] || [[ "$VERSION_ID" = '37' ]]; then
-   echo -e "${GREEN}OS = Fedora ${ENDCOLOR}"
-   systemos=fedora
-   fi
+if [[ "$VERSION_ID" = '11' ]] || [[ "$VERSION_ID" = '20.04' ]] || [[ "$VERSION_ID" = '22.04' ]]; then
+   echo -e "OS Versions check = ${GREEN}ok${ENDCOLOR}"
+   else
+   echo -e "${RED}Only Debian 11 and Ubuntu 20.04 and 22.04 supported ${ENDCOLOR}"
+
+   exit 1
 fi
 
 
